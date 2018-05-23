@@ -5,10 +5,8 @@ const app = express()
 
 let apiKey = 'bbac8196ba4da7c8f1bc517385505607';
 
-var server = app.listen(3000, function () {
-});
 app.use(cors());
-
+app.use('/v1/demo', express.static('html'));
 app.get("/weather/:lon/:lat", function (req, res) {
   let lon = req.params.lon;
   let lat = req.params.lat;
@@ -20,7 +18,7 @@ app.get("/weather/:lon/:lat", function (req, res) {
     } else {
       let result = [];
       let weather = JSON.parse(body)
-      
+
       for (let i = 0; i < weather.list.length; i++) {
         let list = weather.list[i];
 
@@ -38,3 +36,10 @@ app.get("/weather/:lon/:lat", function (req, res) {
     }
   });
 });
+
+// Constants
+const PORT = 3000;
+const HOST = '0.0.0.0';
+
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
